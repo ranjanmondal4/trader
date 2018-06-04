@@ -1,7 +1,10 @@
 package com.trader.controller.user;
 
 import com.trader.config.BasicConfig;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
+import io.swagger.annotations.AuthorizationScope;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,7 @@ import com.trader.service.user.UserService;
 import com.trader.utils.ResponseHandler;
 
 @RestController
+@Api(description = "Set of endpoints for CRUD Operation for Users")
 public class UserController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 	@Autowired
@@ -35,8 +39,16 @@ public class UserController {
 		return ResponseHandler.generateResponse(serviceDto, HttpStatus.OK, HttpStatus.BAD_REQUEST); 
 	}
 
+	/*@ApiOperation(value = "/trader/api/v1/user/getByUserId",
+			authorizations = {
+					@Authorization(value="Authorization", scopes = {@AuthorizationScope(
+							scope = "add:pet",
+							description = "allows adding of pets")
+					})
+			}
+	)*/
 	@PreAuthorize("hasAuthority('ROLE_USER')")
-	@RequestMapping(value="/trader/api/v1/user/getByUserId", method=RequestMethod.GET)
+	@RequestMapping(value="/trader/api/v1/user/getByUserId", method=RequestMethod.GET)//@RequestParam String Authorization,
 	ResponseEntity<Object> getByUserId(@RequestParam long userId){
 		LOGGER.debug("getUserByUserId is called");
 		ServiceDTO serviceDto = userService.getByUserId(userId);

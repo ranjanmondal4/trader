@@ -28,6 +28,7 @@ public class AuthenticationFilter extends GenericFilterBean{
 
 	// auto-wired spring authentication manager
     public AuthenticationFilter(AuthenticationManager authenticationManager) {
+    	//LOGGER.info(">>>>>>>>>>>>>>>>>>>>>Inside Authentication Filter " + authenticationManager);
         this.authenticationManager = authenticationManager;
     }
     
@@ -44,28 +45,27 @@ public class AuthenticationFilter extends GenericFilterBean{
 		}
 
 		Optional<String>  token = Optional.ofNullable(httpRequest.getHeader("Authorization")) ;
-	//	LOGGER.info(":::::Authentication token :: "+token);
+		//LOGGER.info("Authentication token :: "+token);
 	
 		try {
 			if (token.isPresent()) {
 				validateAuthToken(token.get());
-			}else {
-				//LOGGER.info("::::: " + token.isPresent());
-			}
+			}/*else {
+				LOGGER.info("Authtoken present : " + token.isPresent());
+			}*/
 			chain.doFilter(request, response);
 		} catch (InternalAuthenticationServiceException internalAuthenticationServiceException) {
-			SecurityContextHolder.clearContext();
-			LOGGER.error("Internal authentication service exception", internalAuthenticationServiceException);
-			httpResponse.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			//LOGGER.error("Internal authentication service exception", internalAuthenticationServiceException);
+			//httpResponse.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			responseOnError(HttpServletResponse.SC_UNAUTHORIZED, httpResponse, httpRequest);
 		} catch (AuthenticationException authenticationException) {
-			SecurityContextHolder.clearContext();
-			LOGGER.error("::::: Unauthorized Exception :: ");
+			//LOGGER.error("Unauthorized Exception :: ");
 			// return on token not found.
-			//responseOnError(HttpServletResponse.SC_UNAUTHORIZED, httpResponse, httpRequest);
-			httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-
+			responseOnError(HttpServletResponse.SC_UNAUTHORIZED, httpResponse, httpRequest);
+			//httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		} catch (Exception e) {
-			LOGGER.error("Exception: " + e);
+			//LOGGER.error("Exception: " + e);
+			responseOnError(HttpServletResponse.SC_UNAUTHORIZED, httpResponse, httpRequest);
 		}
 	}
 
@@ -83,22 +83,23 @@ public class AuthenticationFilter extends GenericFilterBean{
 		PreAuthenticatedAuthenticationToken requestAuthentication = new PreAuthenticatedAuthenticationToken(token, null);
 		Authentication responseAuthentication = null;
 		try {
-			LOGGER.info(":::::::::validateAuthToken ");
 			responseAuthentication = authenticationManager.authenticate(requestAuthentication);
 		} catch (Exception e) {
-			LOGGER.info("Exception : " + e);
+			//LOGGER.error("Exception : " + e);
 			throw new InvalidDataAccessApiUsageException("Invalid token");
 		}
 		if (Objects.isNull(responseAuthentication) || !responseAuthentication.isAuthenticated()) {
-			LOGGER.info("Response Authentication : is null or authenticated is false");
+			//LOGGER.info("Response Authentication : is null or authenticated is false");
 			throw new InternalAuthenticationServiceException("Unable to Authenticate");
 		}
 		SecurityContextHolder.getContext().setAuthentication(responseAuthentication);
 	}
-	
-	/*private boolean responseOnError(Integer status, HttpServletResponse httpResponse, HttpServletRequest httpRequest) {		
+
+	private boolean responseOnError(Integer status, HttpServletResponse httpResponse, HttpServletRequest httpRequest) {
+		SecurityContextHolder.clearContext();
+		LOGGER.info("Response On Error >>>>>");
 		httpResponse.setStatus(status);
-		//httpResponse.addHeader("Content-Type", "application/json");
+		httpResponse.addHeader("Content-Type", "application/json");
 		try {
 			httpResponse.getWriter().flush();
 			httpResponse.getWriter().close();
@@ -106,5 +107,5 @@ public class AuthenticationFilter extends GenericFilterBean{
 			LOGGER.error("Exception in Response Object : " + e);
 		}
 		return false;
-	}*/
+	}
 }
