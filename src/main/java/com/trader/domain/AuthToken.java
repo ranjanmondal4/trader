@@ -1,4 +1,4 @@
-package com.trader.doman;
+package com.trader.domain;
 
 import java.util.Date;
 
@@ -9,12 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import com.trader.doman.user.User;
+import com.trader.domain.user.User;
 
 @Entity
 public class AuthToken {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy= GenerationType.AUTO)
 	private long id;
 	@Column(nullable=false, unique=true)
 	private String token;
@@ -44,5 +44,6 @@ public class AuthToken {
 	}
 	public void setUpdated(Date updated) {
 		this.updated = updated;
-	}	
+	}
 }
+

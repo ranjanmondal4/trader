@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.trader.doman.AuthToken;
+import com.trader.domain.AuthToken;
 import org.springframework.stereotype.Repository;
 
 @Repository
