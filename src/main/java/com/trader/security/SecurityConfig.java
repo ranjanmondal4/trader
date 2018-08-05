@@ -52,7 +52,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(WebSecurity web ) throws Exception{
-        web.ignoring().antMatchers("/liquidity/api/v1/time");
+        web.ignoring().antMatchers("/trader/api/v1/user/login");
+        web.ignoring().antMatchers("/trader/api/v1/marketOrder");
+
     }
 
 

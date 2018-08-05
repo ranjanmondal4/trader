@@ -1,7 +1,7 @@
 package com.trader.controller.kafka;
 
-import com.trader.dto.common.ServiceDTO;
-import com.trader.service.user.KafkaService.KafkaService;
+import com.trader.service.kafka.KafkaService;
+import com.trader.utils.Response;
 import com.trader.utils.ResponseHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,9 +21,10 @@ public class KafkaController {
 
     @RequestMapping(value="/trader/api/v1/user/login", method= RequestMethod.GET)
     ResponseEntity<Object> login(){
-        LOGGER.info("login is called ");
-
-        ServiceDTO serviceDto = kafkaService.login();
-        return ResponseHandler.generateControllerResponse(null, HttpStatus.OK);
+        LOGGER.info(">>>>>>>>>>>>>login is called ");
+        Response response = kafkaService.login();
+        if(response.isSuccess())
+            return ResponseHandler.generateControllerResponse(null, HttpStatus.OK);
+        return ResponseHandler.generateControllerResponse(null, HttpStatus.BAD_REQUEST);
     }
 }

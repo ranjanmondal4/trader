@@ -1,9 +1,10 @@
-package com.trader.service.user.KafkaService;
+package com.trader.service.kafka;
 
 import com.trader.domain.kafka.Receiver;
 import com.trader.domain.kafka.Sender;
-import com.trader.dto.common.ServiceDTO;
 import com.trader.service.user.UserService;
+import com.trader.utils.Response;
+import com.trader.utils.ResponseHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,10 @@ public class KafkaService {
     @Autowired
     private Sender sender;
 
-    public ServiceDTO login(){
+    public Response login(){
         LOGGER.debug("service is invoked");
         testReceive();
-        return ServiceDTO.getServiceResponse(true, "Success", "Success");
+        return ResponseHandler.generateServiceResponse(true, "Success", "Success", null);
     }
 
     public void testReceive(){
@@ -40,6 +41,5 @@ public class KafkaService {
         }catch(Exception e){
 
         }
-
     }
 }

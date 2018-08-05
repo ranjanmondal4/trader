@@ -16,9 +16,9 @@ public class Receiver {
         return latch;
     }
 
-    @KafkaListener(topics = "${spring.kafka.topic.test}")
+    //@KafkaListener(topics = "${spring.kafka.topic.test}")
     public void receive(String payload) {
-        LOGGER.info("received payload='{}'", payload);
+        LOGGER.info("received payload = {}", payload);
         latch.countDown();
     }
 }

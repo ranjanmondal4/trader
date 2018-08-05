@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-@EnableKafka
+//@EnableKafka   //-> disable kafka implementation
 public class ReceiverConfig {
 
     @Value("${spring.kafka.bootstrap-servers}")

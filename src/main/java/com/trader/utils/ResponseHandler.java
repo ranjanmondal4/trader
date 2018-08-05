@@ -1,12 +1,9 @@
 package com.trader.utils;
 
-import java.util.Date;
 import java.util.Objects;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import com.trader.dto.common.ServiceDTO;
 
 public class ResponseHandler {
 
