@@ -28,7 +28,7 @@ public class KafkaService {
     @Autowired
     private Sender sender;
 
-    public Response login(){
+    public Response<Object> login(){
         LOGGER.debug("service is invoked");
         testReceive();
         return ResponseHandler.generateServiceResponse(true, "Success", "Success", null);

@@ -9,20 +9,20 @@ public class ResponseHandler {
 
 	private ResponseHandler(){}
 
-	public static Response generateServiceResponse(boolean isSuccess, String message,
-												   Object data, Object error){
-		Response response = null;
+	public static Response<Object> generateServiceResponse(boolean isSuccess, String message,
+												   Object data, Exception error){
+		Response<Object> response = null;
 		try {
-			response = new Response(isSuccess, message, data, error);
+			response = new Response<Object>(isSuccess, message, data, error);
 		}catch(Exception e){
-			response = new Response(false, e.getMessage(), null, e);
+			response = new Response<Object>(false, e.getMessage(), null, e);
 		}
 		return response;
 	}
 
-	public static ResponseEntity<Object> generateControllerResponse(Response response, HttpStatus status) {
+	public static ResponseEntity<Object> generateControllerResponse(Response<Object> response, HttpStatus status) {
 		if(Objects.isNull(response)){
-			response = new Response(false, "message", null, null);
+			response = new Response<Object>(false, "message", null, null);
 		}
 		try {
 			response.setStatus(status.value());

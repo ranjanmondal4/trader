@@ -1,10 +1,13 @@
 package com.trader.security;
 
-import com.trader.domain.user.User;
-import com.trader.enums.Role;
-import com.trader.repository.AuthTokenRepository;
-import com.trader.repository.RolesRepository;
-import com.trader.repository.UserRepository;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,12 +17,11 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import com.trader.domain.user.User;
+import com.trader.enums.Role;
+import com.trader.repository.AuthTokenRepository;
+import com.trader.repository.RolesRepository;
+import com.trader.repository.UserRepository;
 
 public class CustomAuthenticationManager implements AuthenticationManager {
 

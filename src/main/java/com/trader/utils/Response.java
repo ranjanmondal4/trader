@@ -2,15 +2,15 @@ package com.trader.utils;
 
 import java.util.Date;
 
-public class Response<T,G> {
+public class Response<T> {
     private boolean success;
     private String message;
     private T data;
-    private G exception;
+    private Exception exception;
     private Date timestamp;
     private int status;
 
-    public Response(boolean success, String message, T data, G exception) {
+    public Response(boolean success, String message, T data, Exception exception) {
         this.success = success;
         this.message = message;
         this.data = data;
@@ -30,7 +30,7 @@ public class Response<T,G> {
         return data;
     }
 
-    public G getException() {
+    public Exception getException() {
         return exception;
     }
 

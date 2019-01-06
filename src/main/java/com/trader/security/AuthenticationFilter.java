@@ -86,7 +86,7 @@ public class AuthenticationFilter extends GenericFilterBean {
         SecurityContextHolder.clearContext();
         httpResponse.setStatus(status);
         httpResponse.addHeader("Content-Type", "application/json");
-        Response customResponse = new Response(false, "Unauthorized Request", null, e);
+        Response<Object> customResponse = new Response<Object>(false, "Unauthorized Request", null, e);
         customResponse.setStatus(status);
         ObjectMapper mapper = new ObjectMapper();
         try {
