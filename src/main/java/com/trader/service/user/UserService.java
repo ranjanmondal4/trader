@@ -22,7 +22,7 @@ public class UserService {
 	@Autowired
 	private AsyncService asyncService;
 
-	public Response login(LoginReceiveDTO loginDTO){
+	public Response<Object> login(LoginReceiveDTO loginDTO){
 		LOGGER.debug("service is invoked");
 		return ResponseHandler.generateServiceResponse(true, "Success", loginDTO, null);
 	}

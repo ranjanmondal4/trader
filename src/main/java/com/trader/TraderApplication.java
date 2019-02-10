@@ -8,8 +8,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@EnableScheduling
-@EnableAsync
+//@EnableScheduling
+//@EnableAsync
 @ComponentScan
 public class TraderApplication {
 

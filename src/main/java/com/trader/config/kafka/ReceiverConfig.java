@@ -20,7 +20,7 @@ import java.util.Map;
 //@EnableKafka   //-> disable kafka implementation
 public class ReceiverConfig {
 
-    @Value("${spring.kafka.bootstrap-servers}")
+/*    @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
 
     @Bean
@@ -58,5 +58,5 @@ public class ReceiverConfig {
     @Bean
     public Receiver receiver() {
         return new Receiver();
-    }
+    }*/
 }

@@ -1,4 +1,4 @@
-package com.trader.service.kafka;
+/*package com.trader.service.kafka;
 
 import com.trader.domain.kafka.Receiver;
 import com.trader.domain.kafka.Sender;
@@ -18,9 +18,9 @@ public class KafkaService {
     private static final String TEST_TOPIC = "test";
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
-    /*@ClassRule
+    @ClassRule
     public static KafkaEmbedded embeddedKafka =
-            new KafkaEmbedded(1, true, HELLOWORLD_TOPIC);*/
+            new KafkaEmbedded(1, true, HELLOWORLD_TOPIC);
 
     @Autowired
     private Receiver receiver;
@@ -43,3 +43,4 @@ public class KafkaService {
         }
     }
 }
+*/

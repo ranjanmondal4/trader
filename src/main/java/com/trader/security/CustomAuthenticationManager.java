@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+import com.trader.domain.AuthToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -70,17 +71,18 @@ public class CustomAuthenticationManager implements AuthenticationManager {
                 return new UsernamePasswordAuthenticationToken(apiKey, hmac, authorities);
             }
             LOGGER.info("generated hmac != hmac");
-            /*AuthToken authToken = authTokenRepository.findByToken(apiKey);
+            AuthToken authToken = authTokenRepository.findByToken(apiKey);
             if(authToken != null){
-                return new UsernamePasswordAuthenticationToken(authToken.getUser().getEmail(), authToken.getToken(), AUTHORITIES);
-            }*/
+                return new UsernamePasswordAuthenticationToken(authToken.getUser().getEmail(), authToken.getToken(),  null);
+            }
         }
-        return null;
+            LOGGER.info("Come here -------------");
+            return null;
+        //return null;
     }
 
     public boolean isApiKeyAndHmacPresent(Authentication authentication){
-        return Optional.ofNullable(authentication.getPrincipal()).isPresent() &&
-                Optional.ofNullable(authentication.getPrincipal()).isPresent();
+        return Optional.ofNullable(authentication.getPrincipal()).isPresent();
     }
 
     public String generateHMAC(String data, String secretKey) {

@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(WebSecurity web ) throws Exception{
-        web.ignoring().antMatchers(UrlMapping.USER_LOGIN);
+        web.ignoring().antMatchers("/trader/api/v1/user/login");
         web.ignoring().antMatchers("/trader/api/v1/marketOrder");
         web.ignoring().antMatchers("/trader/api/v1/async");
 
