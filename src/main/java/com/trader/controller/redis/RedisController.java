@@ -1,5 +1,7 @@
 package com.trader.controller.redis;
 
+import com.trader.domain.movie.Movie;
+import com.trader.repository.redis.RedisRepository;
 import com.trader.service.redis.RedisService;
 import com.trader.utils.Response;
 import com.trader.utils.ResponseHandler;
@@ -13,54 +15,32 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 public class RedisController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RedisController.class);
+
     @Autowired
-    private RedisService redisService;
+    private RedisRepository redisRepository;
 
-    @RequestMapping(value="/trader/api/v1/marketOrder", method= RequestMethod.POST)
-    ResponseEntity<Object> addMarketOrder(@RequestParam String market, @RequestParam double amount){
-        LOGGER.info(">>>>>>>>>>>>>>> addMarketOrder");
-        Response response = redisService.addMarketOrder(market, amount);
-        if(response.isSuccess())
-            return ResponseHandler.generateControllerResponse(response, HttpStatus.OK);
-        else
-            return ResponseHandler.generateControllerResponse(response, HttpStatus.BAD_REQUEST);
-
+    @RequestMapping(value = "/movie", method = RequestMethod.POST)
+    public ResponseEntity<String> add( @RequestParam String key, @RequestParam String value) {
+        Movie movie = new Movie(key, value);
+        redisRepository.add(movie);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value="/trader/api/v1/marketOrder", method= RequestMethod.GET)
-    ResponseEntity<Object> getMarketOrder(@RequestParam String market, @RequestParam double amount){
-        LOGGER.info(">>>>>>>>>>>>>>> get MarketOrder");
-        Response response = redisService.getMarketOrder(market, amount);
-        if(response.isSuccess())
-            return ResponseHandler.generateControllerResponse(response, HttpStatus.OK);
-        else
-            return ResponseHandler.generateControllerResponse(response, HttpStatus.BAD_REQUEST);
-
+    @RequestMapping(value = "/movie", method = RequestMethod.GET)
+    public ResponseEntity<Object>findAll() {
+        Map<Object, Object> movieMap = redisRepository.findAllMovies();
+        Map<String, String> map = new HashMap<>();
+        for(Map.Entry<Object, Object> entry : movieMap.entrySet()){
+            String key = (String) entry.getKey();
+            map.put(key, movieMap.get(key).toString());
+        }
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
-/*
-    @RequestMapping(value="/trader/api/v1/marketOrder", method= RequestMethod.PUT)
-    ResponseEntity<Object> updateMarketOrder(@RequestParam long marketId, @RequestParam double amount){
-        LOGGER.info(">>>>>>>>>>>>>>> updateMarketOrder");
-        Response response = redisService.updateMarketOrder(marketId, amount);
-        if(response.isSuccess())
-            return ResponseHandler.generateControllerResponse(response, HttpStatus.OK);
-        else
-            return ResponseHandler.generateControllerResponse(response, HttpStatus.BAD_REQUEST);
-
-    }
-
-    @RequestMapping(value="/trader/api/v1/marketOrder", method= RequestMethod.DELETE)
-    ResponseEntity<Object> deleteMarketOrder(@RequestParam long marketId){
-        LOGGER.info(">>>>>>>>>>>>>>> delete MarketOrder");
-        Response response = redisService.deleteMarketOrder(marketId);
-        if(response.isSuccess())
-            return ResponseHandler.generateControllerResponse(response, HttpStatus.OK);
-        else
-            return ResponseHandler.generateControllerResponse(response, HttpStatus.BAD_REQUEST);
-
-    }*/
 }

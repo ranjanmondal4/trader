@@ -56,6 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/trader/api/v1/user/login");
         web.ignoring().antMatchers("/trader/api/v1/marketOrder");
         web.ignoring().antMatchers("/trader/api/v1/async");
+        web.ignoring().antMatchers("/movie");
 
 
     }
