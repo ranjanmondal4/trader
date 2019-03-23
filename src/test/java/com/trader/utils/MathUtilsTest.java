@@ -12,4 +12,10 @@ class MathUtilsTest {
         int actual = MathUtils.add(1, 1);
         assertEquals(expected, actual);
     }
+
+    @Test
+    void divide() {
+        MathUtils mathUtils = new MathUtils();
+        assertThrows(ArithmeticException.class,() -> mathUtils.divide(1, 0), "Exception not found");
+    }
 }
