@@ -12,12 +12,14 @@ import com.trader.dto.user.LoginReceiveDTO;
 import com.trader.service.user.UserService;
 import com.trader.utils.Response;
 import com.trader.utils.ResponseHandler;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class UserController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 	@Autowired
 	private UserService userService; 
-	@RequestMapping(value="/trader/api/v1/user/login", method=RequestMethod.PUT)
+	@RequestMapping(value="/trader/api/v1/user/login", method=RequestMethod.POST)
     public Response<Object> login(@RequestBody LoginReceiveDTO loginDTO){
         LOGGER.debug("User login is invoked");
         return userService.login(loginDTO);

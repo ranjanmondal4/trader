@@ -18,9 +18,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-@Configuration
+
 @EnableWebSecurity
-@EnableScheduling
+@Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Order(SecurityProperties.DEFAULT_FILTER_ORDER)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
