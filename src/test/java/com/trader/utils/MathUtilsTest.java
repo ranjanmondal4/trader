@@ -15,6 +15,12 @@ class MathUtilsTest {
         mathUtils = new MathUtils();
     }
 
+    @BeforeEach
+    void beforeEach(TestInfo testInfo, TestReporter testReporter){
+       /* testReporter.publishEntry("Currently running class name " + testInfo.getTestClass()
+            + " method name " + testInfo.getTestMethod());*/
+    }
+
     @Nested
     @DisplayName("add method")
     class AddTest {
@@ -59,5 +65,13 @@ class MathUtilsTest {
                ()-> assertEquals(0, mathUtils.multiply(2, 0)),
                ()-> assertEquals(-4, mathUtils.multiply(2, -2)),
                ()-> assertEquals(4, mathUtils.multiply(-2, -2)));
+    }
+
+    @RepeatedTest(3)
+    @DisplayName("Subtraction of two numbers")
+    void addNegative(RepetitionInfo repetitionInfo) {
+       // System.out.println("repeation " + repetitionInfo.getCurrentRepetition());
+        assertEquals(1, mathUtils.subtract(4, 3),
+                () -> "should return subtraction value");
     }
 }
