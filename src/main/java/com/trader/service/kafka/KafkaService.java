@@ -38,11 +38,8 @@ public class KafkaService {
         LOGGER.info("Topic {}", kafkaTopic);
         try {
             sender.send(kafkaTopic, message);
-  //          receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
-       // testReceive();
         }catch(Exception e){
             LOGGER.error("Exception in Producer {}", e.getMessage());
-
         }
     }
 }
