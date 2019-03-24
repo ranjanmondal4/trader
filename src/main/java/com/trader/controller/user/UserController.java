@@ -21,7 +21,7 @@ public class UserController {
 	private UserService userService; 
 	@RequestMapping(value="/trader/api/v1/user/login", method=RequestMethod.POST)
     public Response<Object> login(@RequestBody LoginReceiveDTO loginDTO){
-        LOGGER.debug("User login is invoked");
+        LOGGER.info("User login is invoked");
         return userService.login(loginDTO);
         //return ResponseHandler.generateServiceResponse(true, "Success", "Success", null);
     }

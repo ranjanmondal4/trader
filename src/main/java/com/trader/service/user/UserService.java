@@ -23,14 +23,14 @@ public class UserService {
 	private AsyncService asyncService;
 
 	public Response<Object> login(LoginReceiveDTO loginDTO){
-		LOGGER.debug("service is invoked");
+		LOGGER.info("service is invoked");
 		return ResponseHandler.generateServiceResponse(true, "Success", loginDTO, null);
 	}
 	
 	public Response getByUserId(long userId){
 		LOGGER.debug(":::::::::::::::::::: get by userId service is invoked");
 		Map<String, Object> user = new HashMap<>();
-		user.put("name", "rnajan");
+		user.put("name", "ranjan");
 		user.put("age", 20);
 		return ResponseHandler.generateServiceResponse(true, "Success", user, null);
 	}

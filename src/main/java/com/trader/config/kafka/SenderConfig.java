@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Component
 public class SenderConfig {
-    /*@Value("${spring.kafka.bootstrap-servers}")
+    @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
 
     @Bean
@@ -45,5 +45,5 @@ public class SenderConfig {
     @Bean
     public Sender sender() {
         return new Sender();
-    }*/
+    }
 }

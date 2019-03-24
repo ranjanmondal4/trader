@@ -13,9 +13,9 @@ public class ResponseHandler {
 												   Object data, Exception error){
 		Response<Object> response = null;
 		try {
-			response = new Response<Object>(isSuccess, message, data, error);
+			response = new Response<>(isSuccess, message, data, error);
 		}catch(Exception e){
-			response = new Response<Object>(false, e.getMessage(), null, e);
+			response = new Response<>(false, e.getMessage(), null, e);
 		}
 		return response;
 	}
